@@ -1,6 +1,6 @@
-import { IGame, IGames } from './../../models/games.model';
+import { IGame } from './../../models/games.model';
 import { Component } from '@angular/core';
-import { combineLatest, map, Observable, shareReplay, startWith, Subject, tap } from 'rxjs';
+import { combineLatest, map, Observable, shareReplay, startWith, Subject } from 'rxjs';
 import { IGameTypes } from '../../models/games.model';
 import { GamesService } from '../../services/games.service';
 import { FormControl } from '@angular/forms';
@@ -25,13 +25,11 @@ export class GamesComponent {
 
     this.gamesMap$ = gamesService.getGames$().pipe(
       map(games => new Map(games.Games.map(game => [game.GameID, game]))),
-      tap(res => console.log(res)),
       shareReplay()
     );
 
     this.gameTypes$ = gamesService.getGames$().pipe(
       map(games => games.GameTypes.sort((a, b) => (a.Order > b.Order) ? 1 : -1)),
-      tap(res => console.log(res)),
       shareReplay()
     );
 
@@ -69,7 +67,6 @@ export class GamesComponent {
           .sort((a, b) => (a.GameOrder > b.GameOrder) ? 1 : -1)
         || []
       ),
-      tap(res => console.log(res))
     )
   }
 
