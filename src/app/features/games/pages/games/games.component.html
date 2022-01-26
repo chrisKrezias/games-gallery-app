@@ -1,0 +1,18 @@
+<section>
+  <h1>games works!</h1>
+
+  <div class="form-group">
+    <label for="search-game">Search Game: </label>
+    <input [formControl]="searchControl" type="search" name="search-game" id="search-game">
+  </div>
+
+  <div class="tabs">
+    <button *ngFor="let gameType of gameTypes$ | async" (click)="showMovies(gameType.ID)">
+      {{gameType.Name}}
+    </button>
+  </div>
+
+  <div class="game-gallery-grid">
+    <img *ngFor="let game of selectedGameTypeGames$ | async" src="https://data.progressplay.net/games/lobby/{{game.ImageID}}.jpg" alt="{{game.GameName}}">
+  </div>
+</section>
