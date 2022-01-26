@@ -1,13 +1,39 @@
-.game-gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(6, 1fr);
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
-  grid-auto-rows: 0;
-  overflow-y: hidden;
-}
+.section-games {
+  display: flex;
+  flex-direction: column;
 
-.pagination {
-  display: inline-block;
+  * {
+    width: fit-content;
+    align-self: center;
+  }
+
+  .game-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    justify-items: center;
+
+    img {
+      object-fit: cover;
+      width: 60%;
+      max-height: 100%;
+    }
+  }
+
+  .pagination {
+    display: inline-block;
+
+    span,
+    a {
+      color: black;
+      float: left;
+      padding: 8px 16px;
+    }
+
+    a {
+      text-decoration: none;
+    }
+  }
 }

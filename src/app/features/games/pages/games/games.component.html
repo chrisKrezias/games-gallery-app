@@ -1,23 +1,31 @@
-<section>
-  <h1>games works!</h1>
+<section class="section-games">
+  <h1>Games Gallery!</h1>
 
   <div class="form-group">
     <label for="search-game">Search Game: </label>
     <input [formControl]="searchControl" type="search" name="search-game" id="search-game">
   </div>
 
-  <div class="tabs">
-    <button *ngFor="let gameType of gameTypes$ | async" (click)="showMovies(gameType.ID)">
+  <div class="tabs" *ngIf="(gameTypes$ | async) as gameTypes; else loadingTabs">
+    <button *ngFor="let gameType of gameTypes" (click)="showMovies(gameType.ID)">
       {{gameType.Name}}
     </button>
   </div>
 
-  <div class="game-gallery-grid">
-    <img *ngFor="let game of activeGamesPage$ | async" src="https://data.progressplay.net/games/lobby/{{game.ImageID}}.jpg" alt="{{game.GameName}}">
+  <div *ngIf="(activeGamesPage$ | async) as activeGamesPage; else noGames" class="game-gallery-grid">
+    <img *ngFor="let game of activeGamesPage" src="https://data.progressplay.net/games/lobby/{{game.ImageID}}.jpg" alt="{{game.GameName}}">
   </div>
-  <div class="pagination">
-    <a *ngFor="let page of selectedGameTypeGamesPages$ | async; let i=index" href="javascript:void(0)" (click)="updateActivePage(i)">{{i}}</a>
+  <div *ngIf="(selectedGameTypeGamesPages$ | async) as selectedGameTypeGamesPages" class="pagination">
+    <span>Pagination:</span> <a *ngFor="let page of selectedGameTypeGamesPages; let i=index" href="javascript:void(0)" (click)="updateActivePage(i)">{{i}}</a>
   </div>
 
 
 </section>
+
+<ng-template #loadingTabs>
+  <p>Loading tabs...</p>
+</ng-template>
+
+<ng-template #noGames>
+  <p>No games data</p>
+</ng-template>
