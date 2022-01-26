@@ -7,11 +7,10 @@ import { IGames } from '../models/games.model';
   providedIn: 'root'
 })
 export class GamesService {
+  private games$: Observable<IGames>;
 
-  constructor(private http: HttpClient) { }
-
-  public getGames$(): Observable<IGames> {
-    return combineLatest([
+  constructor(private http: HttpClient) {
+    this.games$ = combineLatest([
       from(this.getLabelId()),
       from(this.getLanguageId()),
     ]).pipe(
@@ -22,6 +21,10 @@ export class GamesService {
       ),
       shareReplay()
     )
+  }
+
+  public getGames$(): Observable<IGames> {
+    return this.games$;
   }
 
   private async getLabelId(): Promise<number> {
