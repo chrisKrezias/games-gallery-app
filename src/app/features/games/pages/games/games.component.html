@@ -13,6 +13,11 @@
   </div>
 
   <div class="game-gallery-grid">
-    <img *ngFor="let game of selectedGameTypeGames$ | async" src="https://data.progressplay.net/games/lobby/{{game.ImageID}}.jpg" alt="{{game.GameName}}">
+    <img *ngFor="let game of activeGamesPage$ | async" src="https://data.progressplay.net/games/lobby/{{game.ImageID}}.jpg" alt="{{game.GameName}}">
   </div>
+  <div class="pagination">
+    <a *ngFor="let page of selectedGameTypeGamesPages$ | async; let i=index" href="javascript:void(0)" (click)="updateActivePage(i)">{{i}}</a>
+  </div>
+
+
 </section>
